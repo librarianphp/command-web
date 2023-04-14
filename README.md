@@ -1,7 +1,4 @@
-# command-help
+# command-web
 
-Librarian's built-in help command.
+Librarian's web controllers are implemented as commands under the "Web" namespace.
 
-```shell
-./librarian help
-```

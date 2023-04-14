@@ -24,6 +24,12 @@
 |
 */
 
+use Librarian\Provider\ContentServiceProvider;
+use Librarian\Provider\RouterServiceProvider;
+use Librarian\Provider\TwigServiceProvider;
+use Librarian\Provider\LibrarianServiceProvider;
+
+use Librarian\Request;
 use Minicli\App;
 
 expect()->extend('toBeOne', function () {
@@ -41,12 +47,63 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function getMinicli()
+function getLibrarianIndex(): App
 {
-    return new App([
+    $app = new App([
         'app_path' => [
             __DIR__ . '/../Command'
         ],
+        'data_path' => __DIR__ . '/Resources/data',
+        'cache_path' => __DIR__ . '/Resources/cache',
+        'templates_path' => __DIR__ . '/Resources/templates',
         'debug' => true
     ]);
+
+    $router = Mockery::mock(RouterServiceProvider::class);
+    $request = Mockery::mock(Request::class);
+    $request->shouldReceive('getParams');
+
+    $router->shouldReceive('load');
+    $router->shouldReceive('getRequest')->andReturn($request);
+
+
+    $app->addService('router', $router);
+    $app->addService('twig', new TwigServiceProvider());
+    $app->addService('librarian', new LibrarianServiceProvider());
+    $app->addService('content', new ContentServiceProvider());
+
+    $app->librarian->boot();
+
+    return $app;
+}
+
+function getLibrarianContent(string $slug): App
+{
+    $app = new App([
+        'app_path' => [
+            __DIR__ . '/../Command'
+        ],
+        'data_path' => __DIR__ . '/Resources/data',
+        'cache_path' => __DIR__ . '/Resources/cache',
+        'templates_path' => __DIR__ . '/Resources/templates',
+        'debug' => true
+    ]);
+
+    $router = Mockery::mock(RouterServiceProvider::class);
+    $request = Mockery::mock(Request::class);
+    $request->shouldReceive('getParams');
+    $request->shouldReceive('getRoute')->andReturn('posts');
+    $request->shouldReceive('getSlug')->andReturn($slug);
+
+    $router->shouldReceive('load');
+    $router->shouldReceive('getRequest')->andReturn($request);
+
+    $app->addService('router', $router);
+    $app->addService('twig', new TwigServiceProvider());
+    $app->addService('librarian', new LibrarianServiceProvider());
+    $app->addService('content', new ContentServiceProvider());
+
+    $app->librarian->boot();
+
+    return $app;
 }
