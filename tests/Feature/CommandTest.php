@@ -5,6 +5,10 @@ test('Index page is correctly loaded', function () {
     $app->runCommand(['minicli', 'web', 'index']);
 })->expectOutputRegex("/template listing/");
 
+test('Custom Index page is correctly loaded', function () {
+    $app = getLibrarianIndex("posts/test0");
+    $app->runCommand(['minicli', 'web', 'index']);
+})->expectOutputRegex("/custom index/");
 
 test('Content page posts/test0 is correctly loaded', function () {
     $app = getLibrarianContent('test0');

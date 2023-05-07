@@ -19,9 +19,10 @@ class IndexController extends WebController
         $request = $this->getRequest();
 
         if ($this->getApp()->config->site_index !== null) {
+            $indexTpl = $this->getApp()->config->site_index_tpl ?? 'content/single.html.twig';
             $content = $content_provider->fetch($this->getApp()->config->site_index);
             if ($content) {
-                $response = new Response($twig->render('content/single.html.twig', [
+                $response = new Response($twig->render($indexTpl, [
                     'content' => $content
                 ]));
 
