@@ -47,9 +47,9 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function getLibrarianIndex(): App
+function getLibrarianIndex(string $custom = null): App
 {
-    $app = new App([
+    $config = [
         'app_path' => [
             __DIR__ . '/../Command'
         ],
@@ -57,8 +57,14 @@ function getLibrarianIndex(): App
         'cache_path' => __DIR__ . '/Resources/cache',
         'templates_path' => __DIR__ . '/Resources/templates',
         'debug' => true
-    ]);
+    ];
 
+    if ($custom) {
+        $config['site_index'] = $custom;
+        $config['site_index_tpl'] = "content/custom_index.html.twig";
+    }
+
+    $app = new App($config);
     $router = Mockery::mock(RouterServiceProvider::class);
     $request = Mockery::mock(Request::class);
     $request->shouldReceive('getParams');
