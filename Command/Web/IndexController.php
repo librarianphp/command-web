@@ -10,7 +10,7 @@ use Librarian\Provider\ContentServiceProvider;
 
 class IndexController extends WebController
 {
-    public function handle()
+    public function handle(): void
     {
         /** @var TwigServiceProvider $twig */
         $twig = $this->getApp()->twig;
@@ -27,7 +27,6 @@ class IndexController extends WebController
                 ]));
 
                 $response->output();
-                return 0;
             }
         }
 
@@ -52,6 +51,5 @@ class IndexController extends WebController
         $response = new Response($output);
 
         $response->output();
-        return 0;
     }
 }

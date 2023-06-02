@@ -11,7 +11,7 @@ use Suin\RSSWriter\Item;
 
 class FeedController extends WebController
 {
-    public function handle()
+    public function handle(): void
     {
         $feed = new Feed();
         $channel = new Channel();

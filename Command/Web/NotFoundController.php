@@ -8,7 +8,7 @@ use Twig\Environment;
 
 class NotFoundController extends WebController
 {
-    public function handle()
+    public function handle(): void
     {
         /** @var Environment $twig */
         $twig = $this->getApp()->twig;
