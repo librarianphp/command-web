@@ -8,7 +8,7 @@ use Twig\Environment;
 
 class ErrorController extends WebController
 {
-    public function handle()
+    public function handle(): void
     {
         /** @var Environment $twig */
         $twig = $this->getApp()->twig;

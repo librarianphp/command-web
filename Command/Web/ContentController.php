@@ -2,6 +2,7 @@
 
 namespace librarianphp\Web;
 
+use Librarian\ContentType;
 use Librarian\Provider\TwigServiceProvider;
 use Librarian\Response;
 use Librarian\Provider\ContentServiceProvider;
@@ -14,7 +15,7 @@ use Librarian\WebController;
  */
 class ContentController extends WebController
 {
-    public function handle(): int
+    public function handle(): void
     {
         /** @var TwigServiceProvider $twig */
         $twig = $this->getApp()->twig;
@@ -37,17 +38,17 @@ class ContentController extends WebController
                 }
 
                 $start = ($page * $limit) - $limit;
-
-                $content_list = $content_provider->fetchFrom($request->getRoute(), $start, $limit);
+                $contentType = $content_provider->getContentType($request->getRoute());
+                $content_list = $content_provider->fetchFrom($contentType, $start, $limit);
                 $response = new Response($twig->render('content/listing.html.twig', [
                     'content_list' => $content_list,
                     'total_pages' => $content_provider->fetchTotalPages($limit),
                     'current_page' => $page,
-                    'base_url' => $request->getRoute()
+                    'base_url' => $request->getRoute(),
+                    'content_type' => $contentType
                 ]));
 
                 $response->output();
-                return 0;
             }
         } catch (\Exception $e) {
             Response::redirect('/notfound');
@@ -60,6 +61,5 @@ class ContentController extends WebController
 
         $response = new Response($output);
         $response->output();
-        return 0;
     }
 }

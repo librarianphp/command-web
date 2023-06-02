@@ -12,7 +12,7 @@ class TagController extends WebController
     /**
      * @throws \Exception
      */
-    public function handle()
+    public function handle(): void
     {
         /** @var TwigServiceProvider $twig */
         $twig = $this->getApp()->twig;
