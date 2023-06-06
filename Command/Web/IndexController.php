@@ -27,6 +27,7 @@ class IndexController extends WebController
                 ]));
 
                 $response->output();
+                return;
             }
         }
 
