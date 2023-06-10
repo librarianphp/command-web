@@ -25,10 +25,10 @@
 */
 
 use Librarian\Provider\ContentServiceProvider;
+use Librarian\Provider\FeedServiceProvider;
+use Librarian\Provider\LibrarianServiceProvider;
 use Librarian\Provider\RouterServiceProvider;
 use Librarian\Provider\TwigServiceProvider;
-use Librarian\Provider\LibrarianServiceProvider;
-
 use Librarian\Request;
 use Minicli\App;
 
@@ -77,6 +77,7 @@ function getLibrarianIndex(string $custom = null): App
     $app->addService('twig', new TwigServiceProvider());
     $app->addService('librarian', new LibrarianServiceProvider());
     $app->addService('content', new ContentServiceProvider());
+    $app->addService('feed', new FeedServiceProvider());
 
     $app->librarian->boot();
 
@@ -108,6 +109,7 @@ function getLibrarianContent(string $slug): App
     $app->addService('twig', new TwigServiceProvider());
     $app->addService('librarian', new LibrarianServiceProvider());
     $app->addService('content', new ContentServiceProvider());
+    $app->addService('feed', new FeedServiceProvider());
 
     $app->librarian->boot();
 
