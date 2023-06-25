@@ -49,6 +49,7 @@ class ContentController extends WebController
                 ]));
 
                 $response->output();
+                return;
             }
         } catch (\Exception $e) {
             Response::redirect('/notfound');
