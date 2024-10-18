@@ -11,8 +11,8 @@
         }
     },
     "require": {
-        "minicli/minicli": "^4.0",
-        "librarianphp/librarian-core": "^4.0"
+        "minicli/minicli": "^4.2.0",
+        "librarianphp/librarian-core": "^4.5.0"
     },
     "require-dev": {
         "pestphp/pest": "^3.2",

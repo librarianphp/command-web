@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "beb44c85a6aca36687459545a9e54606",
+    "content-hash": "4d17ba8f30ede4127d5f10762c06f0e8",
     "packages": [
         {
             "name": "dflydev/dot-access-data",
@@ -271,16 +271,16 @@
         },
         {
             "name": "librarianphp/librarian-core",
-            "version": "4.5.0",
+            "version": "4.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/librarianphp/librarian-core.git",
-                "reference": "e11224dab1443571a23e6870367c7412aa7ce688"
+                "reference": "750b77153445c50d37e8757a7a3ca17ba56a6df1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/librarianphp/librarian-core/zipball/e11224dab1443571a23e6870367c7412aa7ce688",
-                "reference": "e11224dab1443571a23e6870367c7412aa7ce688",
+                "url": "https://api.github.com/repos/librarianphp/librarian-core/zipball/750b77153445c50d37e8757a7a3ca17ba56a6df1",
+                "reference": "750b77153445c50d37e8757a7a3ca17ba56a6df1",
                 "shasum": ""
             },
             "require": {
@@ -296,6 +296,7 @@
             },
             "require-dev": {
                 "laravel/pint": "^1.1",
+                "mockery/mockery": "^1.6",
                 "pestphp/pest": "^3.2"
             },
             "type": "library",
@@ -312,7 +313,7 @@
             "homepage": "https://github.com/librarianphp/librarian-core",
             "support": {
                 "issues": "https://github.com/librarianphp/librarian-core/issues",
-                "source": "https://github.com/librarianphp/librarian-core/tree/4.5.0"
+                "source": "https://github.com/librarianphp/librarian-core/tree/4.5.1"
             },
             "funding": [
                 {
@@ -320,7 +321,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-10-07T18:05:32+00:00"
+            "time": "2024-10-17T17:48:27+00:00"
         },
         {
             "name": "librarianphp/parsed",

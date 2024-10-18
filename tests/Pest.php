@@ -43,7 +43,28 @@ use Minicli\App;
 |
 */
 
-function getLibrarian(Request $request): App {}
+function getLibrarian(string $requestUri, array $params = [], array $appConfig = []): App
+{
+    $config = array_merge([
+        'debug' => true,
+        'templates_path' => __DIR__.'/Resources/templates',
+        'data_path' => __DIR__.'/Resources/data',
+        'cache_path' => sys_get_temp_dir(),
+    ], $appConfig);
+
+    $request = new Request($params, $requestUri);
+    $router = Mockery::mock(RouterServiceProvider::class);
+    $router->shouldReceive('load');
+    $router->shouldReceive('getRequest')->andReturn($request);
+
+    $app = new App($config);
+    $app->addService('content', new ContentServiceProvider);
+    $app->addService('twig', new TwigServiceProvider);
+    $app->addService('librarian', new LibrarianServiceProvider);
+    $app->addService('router', $router);
+
+    return $app;
+}
 
 function getLibrarianIndex(?string $custom = null): App
 {

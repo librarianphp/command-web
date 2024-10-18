@@ -36,7 +36,7 @@ class ContentController extends WebController
                 }
 
                 $start = ($page * $limit) - $limit;
-                $contentType = $content_provider->getContentType($request->getRoute());
+                $contentType = $content_provider->getContentType($request->getPath());
                 $content_list = $content_provider->fetchFrom($contentType, $start, $limit);
                 $response = new Response($twig->render('content/listing.html.twig', [
                     'content_list' => $content_list,
