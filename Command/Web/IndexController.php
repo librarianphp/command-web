@@ -2,11 +2,10 @@
 
 namespace librarianphp\Web;
 
-use Librarian\Provider\TwigServiceProvider;
-use Librarian\Request;
-use Librarian\WebController;
-use Librarian\Response;
 use Librarian\Provider\ContentServiceProvider;
+use Librarian\Provider\TwigServiceProvider;
+use Librarian\Response;
+use Librarian\WebController;
 
 class IndexController extends WebController
 {
@@ -23,10 +22,11 @@ class IndexController extends WebController
             $content = $content_provider->fetch($this->getApp()->config->site_index);
             if ($content) {
                 $response = new Response($twig->render($indexTpl, [
-                    'content' => $content
+                    'content' => $content,
                 ]));
 
                 $response->output();
+
                 return;
             }
         }
@@ -35,7 +35,7 @@ class IndexController extends WebController
         $limit = $this->getApp()->config->posts_per_page ?? 10;
         $params = $request->getParams();
 
-        if (key_exists('page', $params)) {
+        if (array_key_exists('page', $params)) {
             $page = $params['page'];
         }
 
@@ -44,9 +44,9 @@ class IndexController extends WebController
         $content_list = $content_provider->fetchAll($start, $limit);
 
         $output = $twig->render('content/listing.html.twig', [
-            'content_list'  => $content_list,
+            'content_list' => $content_list,
             'total_pages' => $content_provider->fetchTotalPages($limit),
-            'current_page' => $page
+            'current_page' => $page,
         ]);
 
         $response = new Response($output);
