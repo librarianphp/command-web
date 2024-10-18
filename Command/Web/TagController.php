@@ -2,9 +2,9 @@
 
 namespace librarianphp\Web;
 
+use Librarian\Provider\ContentServiceProvider;
 use Librarian\Provider\TwigServiceProvider;
 use Librarian\Response;
-use Librarian\Provider\ContentServiceProvider;
 use Librarian\WebController;
 
 class TagController extends WebController
@@ -22,7 +22,7 @@ class TagController extends WebController
 
         $request = $this->getRequest();
 
-        if (!$request->getSlug()) {
+        if (! $request->getSlug()) {
             Response::redirect('/notfound');
         }
 
@@ -30,7 +30,7 @@ class TagController extends WebController
         $limit = $this->getApp()->config->posts_per_page ?: 10;
         $params = $this->getRequest()->getParams();
 
-        if (key_exists('page', $params)) {
+        if (array_key_exists('page', $params)) {
             $page = $params['page'];
         }
 
@@ -42,7 +42,7 @@ class TagController extends WebController
             Response::redirect('/notfound');
         }
 
-        if (!$content_list) {
+        if (! $content_list) {
             Response::redirect('/notfound');
         }
 
@@ -50,7 +50,7 @@ class TagController extends WebController
             'content_list' => $content_list,
             'tag_name' => $request->getSlug(),
             'total_pages' => $content_provider->fetchTagTotalPages($request->getSlug(), $limit),
-            'current_page' => $page
+            'current_page' => $page,
         ]);
 
         $response = new Response($output);

@@ -32,10 +32,6 @@ use Librarian\Provider\TwigServiceProvider;
 use Librarian\Request;
 use Minicli\App;
 
-expect()->extend('toBeOne', function () {
-    return $this->toBe(1);
-});
-
 /*
 |--------------------------------------------------------------------------
 | Functions
@@ -47,21 +43,23 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function getLibrarianIndex(string $custom = null): App
+function getLibrarian(Request $request): App {}
+
+function getLibrarianIndex(?string $custom = null): App
 {
     $config = [
         'app_path' => [
-            __DIR__ . '/../Command'
+            __DIR__.'/../Command',
         ],
-        'data_path' => __DIR__ . '/Resources/data',
-        'cache_path' => __DIR__ . '/Resources/cache',
-        'templates_path' => __DIR__ . '/Resources/templates',
-        'debug' => true
+        'data_path' => __DIR__.'/Resources/data',
+        'cache_path' => __DIR__.'/Resources/cache',
+        'templates_path' => __DIR__.'/Resources/templates',
+        'debug' => true,
     ];
 
     if ($custom) {
         $config['site_index'] = $custom;
-        $config['site_index_tpl'] = "content/custom_index.html.twig";
+        $config['site_index_tpl'] = 'content/custom_index.html.twig';
     }
 
     $app = new App($config);
@@ -72,12 +70,11 @@ function getLibrarianIndex(string $custom = null): App
     $router->shouldReceive('load');
     $router->shouldReceive('getRequest')->andReturn($request);
 
-
     $app->addService('router', $router);
-    $app->addService('twig', new TwigServiceProvider());
-    $app->addService('librarian', new LibrarianServiceProvider());
-    $app->addService('content', new ContentServiceProvider());
-    $app->addService('feed', new FeedServiceProvider());
+    $app->addService('twig', new TwigServiceProvider);
+    $app->addService('librarian', new LibrarianServiceProvider);
+    $app->addService('content', new ContentServiceProvider);
+    $app->addService('feed', new FeedServiceProvider);
 
     $app->librarian->boot();
 
@@ -88,12 +85,12 @@ function getLibrarianContent(string $slug): App
 {
     $app = new App([
         'app_path' => [
-            __DIR__ . '/../Command'
+            __DIR__.'/../Command',
         ],
-        'data_path' => __DIR__ . '/Resources/data',
-        'cache_path' => __DIR__ . '/Resources/cache',
-        'templates_path' => __DIR__ . '/Resources/templates',
-        'debug' => true
+        'data_path' => __DIR__.'/Resources/data',
+        'cache_path' => __DIR__.'/Resources/cache',
+        'templates_path' => __DIR__.'/Resources/templates',
+        'debug' => true,
     ]);
 
     $router = Mockery::mock(RouterServiceProvider::class);
@@ -106,10 +103,10 @@ function getLibrarianContent(string $slug): App
     $router->shouldReceive('getRequest')->andReturn($request);
 
     $app->addService('router', $router);
-    $app->addService('twig', new TwigServiceProvider());
-    $app->addService('librarian', new LibrarianServiceProvider());
-    $app->addService('content', new ContentServiceProvider());
-    $app->addService('feed', new FeedServiceProvider());
+    $app->addService('twig', new TwigServiceProvider);
+    $app->addService('librarian', new LibrarianServiceProvider);
+    $app->addService('content', new ContentServiceProvider);
+    $app->addService('feed', new FeedServiceProvider);
 
     $app->librarian->boot();
 

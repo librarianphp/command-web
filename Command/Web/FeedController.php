@@ -2,13 +2,8 @@
 
 namespace librarianphp\Web;
 
-use Librarian\Content;
 use Librarian\Provider\FeedServiceProvider;
 use Librarian\WebController;
-use Librarian\Provider\ContentServiceProvider;
-use Suin\RSSWriter\Channel;
-use Suin\RSSWriter\Feed;
-use Suin\RSSWriter\Item;
 
 class FeedController extends WebController
 {
